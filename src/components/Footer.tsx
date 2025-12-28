@@ -7,15 +7,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Contact Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-teal-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-display font-bold text-lg">RJ</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-display font-semibold">Robert Jamison</h3>
-                <p className="text-xs text-teal-400">CPA</p>
-              </div>
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="/src/assets/Jamison_Accounting_Counsulting_logo.png" 
+                alt="Jamison Accounting & Consulting" 
+                className="h-12 w-auto" 
+              />
             </div>
+            <h3 className="text-lg font-display font-semibold mb-2">Jamison Accounting & Consulting</h3>
             <p className="text-gray-400 leading-relaxed">
               Professional Tax & Accounting Services
             </p>
@@ -71,7 +70,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; {currentYear} Robert Jamison, CPA. All rights reserved.</p>
+          <p>&copy; {currentYear} Jamison Accounting & Consulting. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -14,18 +14,12 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-teal-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-display font-bold text-xl">RJ</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-display font-bold text-gray-900">
-                  Robert Jamison
-                </span>
-                <span className="text-xs text-teal-600 font-semibold tracking-wide">
-                  CERTIFIED PUBLIC ACCOUNTANT
-                </span>
-              </div>
+            <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
+              <img 
+                src="/src/assets/Jamison_Accounting_Counsulting_logo.png" 
+                alt="Jamison Accounting & Consulting" 
+                className="h-14 w-auto" 
+              />
             </Link>
 
             {/* Desktop Navigation */}

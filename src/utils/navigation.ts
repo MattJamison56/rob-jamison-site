@@ -12,6 +12,14 @@ export const navigationItems: MenuItem[] = [
     ],
   },
   {
+    label: 'Client Portal',
+    path: '#',
+    subItems: [
+      { label: 'Existing Client Sign In', path: 'https://jamisoncpa.taxdome.com/', external: true },
+      { label: 'New Client Sign Up', path: 'https://jamisoncpa.taxdome.com/en-us/signup', external: true },
+    ],
+  },
+  {
     label: 'Resources',
     path: '/resources',
     subItems: [
@@ -31,14 +39,14 @@ export const getAllSearchablePages = () => {
     { 
       title: 'Home', 
       path: '/', 
-      keywords: ['home', 'main', 'cpa', 'robert jamison'],
-      content: 'Expert Tax & Accounting You Can Trust. Professional CPA services for individuals and businesses. Tax preparation, tax advisory, accounting, and tax resolution services. We work with entrepreneurs, small businesses, and individuals. Proven track record with millions in tax liability reduced.'
+      keywords: ['home', 'main', 'cpa', 'jamison accounting', 'jamison consulting'],
+      content: 'Expert Tax & Accounting You Can Trust. Professional CPA services for individuals and businesses. Tax preparation, tax advisory, accounting, and tax resolution services. We work with entrepreneurs, small businesses, and individuals. Proven track record with millions in tax liability reduced. Client portal access for existing and new clients.'
     },
     { 
       title: 'About Us', 
       path: '/about', 
-      keywords: ['about', 'robert jamison', 'team', 'company'],
-      content: 'About Robert Jamison CPA. Our mission, values, and commitment to providing exceptional accounting and tax services. Meet our team of experienced professionals dedicated to your financial success.'
+      keywords: ['about', 'jamison accounting', 'jamison consulting', 'team', 'company'],
+      content: 'About Jamison Accounting & Consulting. Our mission, values, and commitment to providing exceptional accounting and tax services. Meet our team of experienced professionals dedicated to your financial success.'
     },
     { 
       title: 'Tax Preparation', 
@@ -74,7 +82,7 @@ export const getAllSearchablePages = () => {
       title: 'Contact', 
       path: '/contact', 
       keywords: ['contact', 'consultation', 'free', 'request'],
-      content: 'Request a free consultation. Contact Robert Jamison CPA for expert tax and accounting services. Get in touch to discuss your tax and accounting needs. Schedule an appointment today.'
+      content: 'Request a free consultation. Contact Jamison Accounting & Consulting for expert tax and accounting services. Get in touch to discuss your tax and accounting needs. Schedule an appointment today.'
     },
   ];
   return pages;

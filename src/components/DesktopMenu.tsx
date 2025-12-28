@@ -24,13 +24,28 @@ const DesktopMenu = ({ onSearchClick }: DesktopMenuProps) => {
               <div className="invisible group-hover:visible opacity-0 group-hover:opacity-100 absolute left-0 mt-0 w-56 rounded-xl shadow-xl bg-navy-900 border border-navy-700 z-50 overflow-hidden transition-all duration-200">
                 <div className="py-2">
                   {item.subItems.map((subItem) => (
-                    <Link
-                      key={subItem.path}
-                      to={subItem.path}
-                      className="block px-4 py-3 text-sm text-gray-300 hover:bg-primary-800 hover:text-white transition-all"
-                    >
-                      {subItem.label}
-                    </Link>
+                    subItem.external ? (
+                      <a
+                        key={subItem.path}
+                        href={subItem.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block px-4 py-3 text-sm text-gray-300 hover:bg-primary-800 hover:text-white transition-all"
+                      >
+                        {subItem.label}
+                        <svg className="w-3 h-3 inline ml-1 mb-1" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                          <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    ) : (
+                      <Link
+                        key={subItem.path}
+                        to={subItem.path}
+                        className="block px-4 py-3 text-sm text-gray-300 hover:bg-primary-800 hover:text-white transition-all"
+                      >
+                        {subItem.label}
+                      </Link>
+                    )
                   ))}
                 </div>
               </div>
