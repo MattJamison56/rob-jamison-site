@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 750">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6BA3D0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4A7BA7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <polygon points="750,50 1450,375 750,700 50,375" fill="url(#blueGrad)" stroke="#666" stroke-width="30"/>
+  <polygon points="750,90 1400,375 750,660 100,375" fill="none" stroke="#444" stroke-width="15"/>
+  <text x="750" y="280" font-family="Georgia, serif" font-size="120" font-weight="bold" fill="white" text-anchor="middle">JAMISON</text>
+  <text x="750" y="400" font-family="Georgia, serif" font-size="60" fill="white" text-anchor="middle">ACCOUNTING &amp; CONSULTING</text>
+  <text x="750" y="630" font-family="Georgia, serif" font-size="45" font-style="italic" fill="white" text-anchor="middle">Integrity + Accuracy</text>
+</svg>
