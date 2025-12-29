@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
 
   const testimonials = [
     {
@@ -26,6 +28,35 @@ const Home = () => {
       statLabel: "Years of Excellence"
     }
   ];
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(0); // reset
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      // Swipe left - next testimonial
+      setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+    }
+    if (isRightSwipe) {
+      // Swipe right - previous testimonial
+      setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+    }
+  };
 
   return (
     <div className="flex-1">
@@ -242,7 +273,12 @@ const Home = () => {
               </svg>
             </button>
 
-            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
+            <div 
+              className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
               <div className="grid grid-cols-1 md:grid-cols-2">
                 {/* Left Side - Stats */}
                 <div className="bg-gradient-to-br from-primary-700 to-primary-800 p-6 sm:p-12 flex flex-col justify-center">

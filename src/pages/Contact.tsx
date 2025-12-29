@@ -1,81 +1,7 @@
-import { useState } from 'react';
-
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  message: string;
-}
+import { useForm, ValidationError } from '@formspree/react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
-
-  const [errors, setErrors] = useState<Partial<FormData>>({});
-  const [submitted, setSubmitted] = useState(false);
-
-  const validateForm = (): boolean => {
-    const newErrors: Partial<FormData> = {};
-
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
-    }
-
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Please tell us about yourself';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (validateForm()) {
-      console.log('Form submitted:', formData);
-      setSubmitted(true);
-      
-      setTimeout(() => {
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          message: '',
-        });
-        setSubmitted(false);
-      }, 3000);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name as keyof FormData]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
-  };
+  const [state, handleSubmit] = useForm("xzdbjgwl");
 
   return (
     <div className="flex-1 bg-gradient-to-br from-gray-50 to-blue-50/30">
@@ -91,7 +17,7 @@ const Contact = () => {
           </p>
         </div>
 
-        {submitted && (
+        {state.succeeded && (
           <div className="mb-8 p-6 bg-gradient-to-r from-green-50 to-teal-50 border-2 border-green-200 rounded-xl shadow-lg animate-fade-in">
             <div className="flex items-center justify-center">
               <svg className="w-6 h-6 text-green-600 mr-3" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -115,21 +41,11 @@ const Contact = () => {
                   type="text"
                   id="firstName"
                   name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className={`mt-1 block w-full rounded-lg border-2 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${
-                    errors.firstName ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                  required
+                  className="mt-1 block w-full rounded-lg border-2 border-gray-200 hover:border-gray-300 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
                   placeholder="John"
                 />
-                {errors.firstName && (
-                  <p className="mt-2 text-sm text-red-600 flex items-center">
-                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    {errors.firstName}
-                  </p>
-                )}
+                <ValidationError prefix="First Name" field="firstName" errors={state.errors} />
               </div>
 
               <div>
@@ -140,47 +56,27 @@ const Contact = () => {
                   type="text"
                   id="lastName"
                   name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className={`mt-1 block w-full rounded-lg border-2 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${
-                    errors.lastName ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                  required
+                  className="mt-1 block w-full rounded-lg border-2 border-gray-200 hover:border-gray-300 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
                   placeholder="Doe"
                 />
-                {errors.lastName && (
-                  <p className="mt-2 text-sm text-red-600 flex items-center">
-                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    {errors.lastName}
-                  </p>
-                )}
+                <ValidationError prefix="Last Name" field="lastName" errors={state.errors} />
               </div>
             </div>
 
             <div>
               <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
-                Email *
+                Email Address *
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={`mt-1 block w-full rounded-lg border-2 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${
-                  errors.email ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 hover:border-gray-300'
-                }`}
-                placeholder="john.doe@example.com"
+                required
+                className="mt-1 block w-full rounded-lg border-2 border-gray-200 hover:border-gray-300 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
+                placeholder="john@example.com"
               />
-              {errors.email && (
-                <p className="mt-2 text-sm text-red-600 flex items-center">
-                  <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg>
-                  {errors.email}
-                </p>
-              )}
+              <ValidationError prefix="Email" field="email" errors={state.errors} />
             </div>
 
             <div>
@@ -191,21 +87,11 @@ const Contact = () => {
                 type="tel"
                 id="phone"
                 name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className={`mt-1 block w-full rounded-lg border-2 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${
-                  errors.phone ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 hover:border-gray-300'
-                }`}
+                required
+                className="mt-1 block w-full rounded-lg border-2 border-gray-200 hover:border-gray-300 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
                 placeholder="(555) 123-4567"
               />
-              {errors.phone && (
-                <p className="mt-2 text-sm text-red-600 flex items-center">
-                  <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg>
-                  {errors.phone}
-                </p>
-              )}
+              <ValidationError prefix="Phone" field="phone" errors={state.errors} />
             </div>
 
             <div>
@@ -216,32 +102,35 @@ const Contact = () => {
                 id="message"
                 name="message"
                 rows={6}
-                value={formData.message}
-                onChange={handleChange}
-                className={`mt-1 block w-full rounded-lg border-2 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${
-                  errors.message ? 'border-red-300 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 hover:border-gray-300'
-                }`}
+                required
+                className="mt-1 block w-full rounded-lg border-2 border-gray-200 hover:border-gray-300 px-4 py-3 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"
                 placeholder="Please describe your accounting or tax needs..."
               />
-              {errors.message && (
-                <p className="mt-2 text-sm text-red-600 flex items-center">
-                  <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg>
-                  {errors.message}
-                </p>
-              )}
+              <ValidationError prefix="Message" field="message" errors={state.errors} />
             </div>
 
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all transform hover:-translate-y-0.5"
+                disabled={state.submitting}
+                className="w-full flex justify-center items-center py-4 px-6 border border-transparent rounded-xl shadow-lg text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
-                <svg className="w-5 h-5 mr-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
-                  <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                Submit Request
+                {state.submitting ? (
+                  <>
+                    <svg className="animate-spin w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-5 h-5 mr-2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Submit Request
+                  </>
+                )}
               </button>
             </div>
           </form>
